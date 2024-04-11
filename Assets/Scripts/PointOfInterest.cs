@@ -11,14 +11,20 @@ public abstract class PointOfInterest : MonoBehaviour
 
     public void JoinQueue(Passenger passenger)
     {
-        passenger.Move(new Vector2(beginningQueue.x + directionQueue.x * peopleInQueue.Count, beginningQueue.y + directionQueue.y * peopleInQueue.Count)); 
+        peopleInQueue.Add(passenger);
     }
+    public Vector2 GetQueuePosition()
+    {
+        return new Vector2(beginningQueue.x + directionQueue.x * peopleInQueue.Count, beginningQueue.y + directionQueue.y * peopleInQueue.Count);
+    }
+
+    public int GetLenQueue() { return peopleInQueue.Count; }
 
     protected abstract void CheckPassenger(Passenger passenger);
 
     protected abstract void ChangePointOfInterest(Passenger passenger);
     
-    void MoveQueue()
+    protected void MoveQueue()
     {
         ChangePointOfInterest(peopleInQueue[0]);
         peopleInQueue.RemoveAt(0);

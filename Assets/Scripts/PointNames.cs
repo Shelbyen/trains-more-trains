@@ -4,7 +4,9 @@ using UnityEngine;
 
 public enum PointNames
 {
-    InspectionPoint = 0,
-    TicketOffice = 1,
-    WaitingRoom = 2
+    TicketOffice = 0,
+    WaitingRooms = 1,
+    Stores = 2,
+    WaterCloset = 3,
+    Platform = 4
 }

@@ -6,13 +6,15 @@ public class InspectionPoint : PointOfInterest
 {
     [SerializeField] private int checkTime = 3;
     [SerializeField] private List<Human> guards;
+
     protected override void ChangePointOfInterest(Passenger passenger)
     {
         if (!passenger.CheckDocument())
         {
-            // Отправляем домой)
+            Destroy(passenger); 
+            return;
         }
-        passenger.SetTargetPlace();
+        passenger.SetTargetPlace(PointNames.TicketOffice);
     }
 
     protected override void CheckPassenger(Passenger passenger)
@@ -23,5 +25,6 @@ public class InspectionPoint : PointOfInterest
     IEnumerator WaitChecking(Passenger passenger)
     {
         yield return new WaitForSeconds(checkTime + passenger.GetMood() / 10);
+        MoveQueue();
     }
 }

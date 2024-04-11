@@ -26,9 +26,10 @@ public class Passenger : Human
         {
             return;
         }
-        if (agent.isStopped)
+        if (agent.isStopped && targetPlace != null)
         {
             targetPlace.GetComponent<PointOfInterest>().JoinQueue(this);
+            targetPlace = null;
             inQueue = true;
             return;
         }
@@ -49,8 +50,25 @@ public class Passenger : Human
         }
     }
 
-    public void SetTargetPlace()
+    public void SetTargetPlace(PointNames name)
     {
-        throw new System.NotImplementedException();
+        List<GameObject> places = ListOfPoints.GetAllPoints(name);
+        if (places.Count == 0)
+        {
+            return;
+        }
+
+        int potencialPlace = 0;
+        int minimalQueue = 100;
+        for (int i = 0; i < places.Count; i++)
+        {
+            int lenQueue = places[i].GetComponent<PointOfInterest>().GetLenQueue();
+            if (minimalQueue > lenQueue)
+            {
+                minimalQueue = lenQueue;
+                potencialPlace = i;
+            }
+        }
+        targetPlace = places[potencialPlace];
     }
 }
