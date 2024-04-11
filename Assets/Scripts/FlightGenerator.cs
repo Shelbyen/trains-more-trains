@@ -18,19 +18,23 @@ public class FlightGenerator : MonoBehaviour
         {
             int l = Random.Range(5, 10);
             int outcome = Random.Range(0, l * 15);
-            flightList.Add(new Flight() {
+            flightList.Add(new Flight()
+            {
                 flightName = new string('0', 4 - flightCount.ToString().Length) + flightCount.ToString(),
                 type = Flight.flightType.passanger,
                 length = l,
                 outcome = outcome,
                 income = Random.Range(0, outcome + l * 5),
-                arrivalTime = 30 + Random.Range(0, 15),
-            });
+                boardingTime = 30 + Random.Range(0, 15),
+                arrivalTime = Random.Range(0, 66) * 10,
+                date = TimeManager.TimeInstance().GetDay() + 2
+            }) ;
             GameObject newFD = Instantiate(DataPref);
             newFD.transform.SetParent(ObjectSpace.transform);
             newFD.transform.localPosition = new Vector3(250, 55 + 100 * flightCount);
             targetLine.Add(flightList[flightCount].flightName, newFD.GetComponent<FlightData>());
             ObjectSpace.GetComponent<RectTransform>().sizeDelta = new Vector2(ObjectSpace.GetComponent<RectTransform>().sizeDelta.x,-110 -100 * flightCount);
+            newFD.GetComponent<FlightData>().SetData(flightList[flightCount].flightName, (TimeManager.TimeInstance().CalculateDate(flightList[flightCount].date) + " " + TimeManager.TimeInstance().CalculateTime(flightList[flightCount].arrivalTime) + "-" + TimeManager.TimeInstance().CalculateTime(flightList[flightCount].arrivalTime + flightList[flightCount].boardingTime)), flightList[flightCount].income, flightList[flightCount].outcome, flightList[flightCount].length);
             flightCount += 1;
         }
     }
