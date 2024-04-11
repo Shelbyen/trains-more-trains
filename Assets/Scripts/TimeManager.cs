@@ -1,5 +1,6 @@
 using System.Collections;
 using System.Collections.Generic;
+using System.Threading;
 using Unity.VisualScripting;
 using UnityEngine;
 
@@ -39,8 +40,8 @@ public class TimeManager
     }
     public string CalculateDate(int date)
     {
-        int m = day / 28 + 1;
-        return day % 28 + " " + months[m] + " 2024";
+        int m = date / 28 + 1;
+        return date % 28 + " " + months[m] + " 2024";
     }
 
     public static TimeManager TimeInstance()
@@ -50,6 +51,5 @@ public class TimeManager
                 _TimeManager = new TimeManager();
             }
             return _TimeManager;
-        
     }
 }

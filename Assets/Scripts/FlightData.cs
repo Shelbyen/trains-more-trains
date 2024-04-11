@@ -20,6 +20,6 @@ public class FlightData : MonoBehaviour
         Incoming.text = "Посадка " + incoming;
         Outcoming.text = "Высадка " + outcoming;
         Van.text = "Вагон х" + length;
-        Train.text = "ГТ1h";
+        Train.text = "Тэп70";
     }
 }
