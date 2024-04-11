@@ -472,8 +472,6 @@ MonoBehaviour:
   scrollSpeed: 1
   vertScrollRange: 0
   horScrollRange: 0
-  zoomSpeed: 0
-  maxCameraZoom: 0
-  minCameraZoom: 0
-  vertAxis: 0
-  horAxis: 0
+  zoomSpeed: 100
+  maxCameraZoom: 1
+  minCameraZoom: 5
