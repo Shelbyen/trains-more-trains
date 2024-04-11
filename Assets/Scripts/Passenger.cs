@@ -10,6 +10,7 @@ public class Passenger : Human
     [SerializeField] private int mood;
     [SerializeField] private int folly;
     [SerializeField] private int luck;
+    [SerializeField] private bool noticed;
     bool inQueue = false;
 
     //если mood < 50 - идёт в киоск или кафе
@@ -18,6 +19,12 @@ public class Passenger : Human
     public int GetMood()
     {
         return mood;
+    }
+
+    public bool GetNoticed() { return noticed; }
+    public void SetNoticed(bool new_noticed)
+    {
+        noticed = new_noticed;
     }
 
     private void Update()
