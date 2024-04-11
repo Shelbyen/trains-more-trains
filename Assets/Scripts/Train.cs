@@ -4,13 +4,19 @@ using UnityEngine;
 
 public class Train : MonoBehaviour
 {
-    [SerializeField] private Vector2 stopPosition;
+    [SerializeField] private int stopPosition;
     [SerializeField] private AnimationCurve animationCurve;
     [SerializeField] private bool isLeaving = false;
     [SerializeField] private bool isStop = false;
+    [SerializeField] private int stopTime;
+
+    private void Awake()
+    {
+        stopTime = Random.Range(5, 20);
+    }
 
     // Update is called once per frame
-    void Update()
+    void FixedUpdate()
     {
         if (isStop)
         {
@@ -19,8 +25,8 @@ public class Train : MonoBehaviour
 
         if (!isLeaving)
         {
-            transform.Translate(new Vector3(animationCurve.Evaluate(stopPosition.x - transform.position.x), 0));
-            if (transform.position.x > stopPosition.x)
+            transform.Translate(new Vector3(animationCurve.Evaluate(stopPosition - transform.position.x) * Time.fixedDeltaTime, 0));
+            if (transform.position.x >= stopPosition)
             {
                 isLeaving = true;
                 isStop = true;
@@ -29,13 +35,13 @@ public class Train : MonoBehaviour
         }
         else
         {
-            transform.Translate(new Vector3(animationCurve.Evaluate(transform.position.x - stopPosition.x), 0));
+            transform.Translate(new Vector3(animationCurve.Evaluate(transform.position.x - stopPosition) * Time.fixedDeltaTime, 0));
         }
     }
 
     private IEnumerator WaitPassengers()
     {
-        yield return new WaitForSeconds(Random.Range(5, 15));
+        yield return new WaitForSeconds(stopTime);
         isStop = false;
     }
 }
