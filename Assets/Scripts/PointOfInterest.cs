@@ -14,6 +14,8 @@ public abstract class PointOfInterest : MonoBehaviour
         return new Vector2(beginningQueue.x + directionQueue.x * peopleInQueue.Count, beginningQueue.y + directionQueue.y * peopleInQueue.Count); 
     }
 
+    protected abstract void CheckPassenger(Passenger passenger);
+
     protected abstract void ChangePointOfInterest(Passenger passenger);
     
     void MoveQueue()
@@ -24,5 +26,6 @@ public abstract class PointOfInterest : MonoBehaviour
         {
             peopleInQueue[i].Move(new Vector2(beginningQueue.x + directionQueue.x * i, beginningQueue.y + directionQueue.y * i));
         }
+        CheckPassenger(peopleInQueue[0]);
     }
 }
