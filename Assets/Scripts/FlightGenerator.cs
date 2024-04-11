@@ -25,9 +25,9 @@ public class FlightGenerator : MonoBehaviour
                 length = l,
                 outcome = outcome,
                 income = Random.Range(0, outcome + l * 5),
-                boardingTime = 30 + Random.Range(0, 15),
-                arrivalTime = Random.Range(0, 66) * 10,
-                date = TimeManager.TimeInstance().GetDay() + 1
+                boardingTime = 60 + Random.Range(0, 30),
+                arrivalTime = Random.Range(24, 132) * 10,
+                date = TimeManager.TimeInstance().GetDay()
             }) ;
             GameObject newFD = Instantiate(DataPref);
             newFD.transform.SetParent(ObjectSpace.transform);
@@ -41,7 +41,7 @@ public class FlightGenerator : MonoBehaviour
 
     private void Awake()
     {
-        GenerateNewFligh(12);
+        GenerateNewFligh(10);
     }
 }
 

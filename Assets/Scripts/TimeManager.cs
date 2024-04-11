@@ -9,7 +9,8 @@ public class TimeManager
     // This is really the only blurb of code you need to implement a Unity singleton
     private static TimeManager _TimeManager;
     private int day = 1;
-    private float second;
+    private int second;
+    private float time_scale = 1; //1 minute in seconds
     private Dictionary<int, string> months = new Dictionary<int, string>()
     {
         {1, "ÿםגאנÿ"}, 
@@ -31,12 +32,42 @@ public class TimeManager
         return day;
     }
 
+    public string ReturnCurentDate()
+    {
+        int m = day / 28 + 1;
+        return day % 28 + " " + months[m];
+    }
+
+    public float Scale()
+    {
+        return time_scale;
+    }
+
+    public void SetScale(float scale)
+    {
+        time_scale = scale;
+    }
+
+    public void AddSecond()
+    {
+        second += 1;
+        if (second == 1440)
+        {
+            second = 0;
+            day += 1;
+        }
+    }
+
     public string CalculateTime(int time)
     {
-        int h = time / 30;
-        int min = (time % 30) * 2;
+        int h = time / 60;
+        int min = (time % 60);
         if (min.ToString().Length == 1) return h + ":" + "0" + min;
         else return h + ":" + min;
+    }
+    public string ReturnCurent()
+    {
+        return CalculateTime(second);
     }
     public string CalculateDate(int date)
     {
