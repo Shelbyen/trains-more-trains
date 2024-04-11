@@ -9,6 +9,11 @@ public class Passenger : Human
     [SerializeField] private int mood;
     [SerializeField] private int folly;
 
+    private void Awake()
+    {
+        
+    }
+
     //если mood < 50 - идёт в киоск или кафе
     //folly отвечает за шанс совершить нарушение
 }
