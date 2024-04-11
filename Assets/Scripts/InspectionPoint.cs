@@ -12,7 +12,7 @@ public class InspectionPoint : PointOfInterest
         {
             // Отправляем домой)
         }
-        // Отправляем за билетами
+        passenger.SetTargetPlace();
     }
 
     protected override void CheckPassenger(Passenger passenger)

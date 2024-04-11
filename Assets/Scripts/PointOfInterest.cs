@@ -9,9 +9,9 @@ public abstract class PointOfInterest : MonoBehaviour
     [SerializeField] private Vector2 directionQueue;
     private List<Passenger> peopleInQueue;
 
-    public Vector2 GetPlaceInQueue()
-    { 
-        return new Vector2(beginningQueue.x + directionQueue.x * peopleInQueue.Count, beginningQueue.y + directionQueue.y * peopleInQueue.Count); 
+    public void JoinQueue(Passenger passenger)
+    {
+        passenger.Move(new Vector2(beginningQueue.x + directionQueue.x * peopleInQueue.Count, beginningQueue.y + directionQueue.y * peopleInQueue.Count)); 
     }
 
     protected abstract void CheckPassenger(Passenger passenger);

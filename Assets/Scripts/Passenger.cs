@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.AI;
 
 public class Passenger : Human
 {
@@ -9,11 +10,7 @@ public class Passenger : Human
     [SerializeField] private int mood;
     [SerializeField] private int folly;
     [SerializeField] private int luck;
-
-    private void Awake()
-    {
-        
-    }
+    bool inQueue = false;
 
     //если mood < 50 - идёт в киоск или кафе
     //folly отвечает за шанс совершить нарушение
@@ -21,6 +18,20 @@ public class Passenger : Human
     public int GetMood()
     {
         return mood;
+    }
+
+    private void Update()
+    {
+        if (inQueue)
+        {
+            return;
+        }
+        if (agent.isStopped)
+        {
+            targetPlace.GetComponent<PointOfInterest>().JoinQueue(this);
+            inQueue = true;
+            return;
+        }
     }
 
     public bool CheckDocument()
@@ -36,5 +47,10 @@ public class Passenger : Human
                 return false;
             }
         }
+    }
+
+    public void SetTargetPlace()
+    {
+        throw new System.NotImplementedException();
     }
 }

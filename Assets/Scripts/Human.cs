@@ -2,13 +2,22 @@ using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.AI;
 
 public class Human : MonoBehaviour
 {
-    [SerializeField] private Transform targetPlace;
+    [SerializeField] protected GameObject targetPlace;
+    protected NavMeshAgent agent;
 
-    internal void Move(Vector2 vector2)
+    private void Awake()
     {
-        throw new NotImplementedException();
+        agent = GetComponent<NavMeshAgent>();
+        agent.updateRotation = false;
+        agent.updateUpAxis = false;
+    }
+
+    public void Move(Vector2 vector2)
+    {
+        agent.SetDestination(vector2);
     }
 }
