@@ -1,12 +1,16 @@
 using System.Collections;
 using System.Collections.Generic;
+using Unity.VisualScripting;
 using UnityEngine;
 
 public class FlightGenerator : MonoBehaviour
 {
     [SerializeField] private List<Flight> flightList = new List<Flight>();
-    [SerializeField] private Dictionary<string, int> targetLine = new Dictionary<string, int>();
-    private int flightCount; 
+    private Dictionary<string, FlightData> targetLine = new Dictionary<string, FlightData>();
+    [SerializeField] private GameObject DataPref;
+    [SerializeField] private Transform ScrollWindowParent;
+    [SerializeField] private GameObject ObjectSpace;
+    private int flightCount;
 
     public void GenerateNewFligh(int count)
     {
@@ -22,14 +26,18 @@ public class FlightGenerator : MonoBehaviour
                 income = Random.Range(0, outcome + l * 5),
                 arrivalTime = 30 + Random.Range(0, 15),
             });
-            targetLine.Add(flightList[flightCount].flightName, 0);
+            GameObject newFD = Instantiate(DataPref);
+            newFD.transform.SetParent(ObjectSpace.transform);
+            newFD.transform.localPosition = new Vector3(250, 55 + 100 * flightCount);
+            targetLine.Add(flightList[flightCount].flightName, newFD.GetComponent<FlightData>());
+            ObjectSpace.GetComponent<RectTransform>().sizeDelta = new Vector2(ObjectSpace.GetComponent<RectTransform>().sizeDelta.x,-110 -100 * flightCount);
             flightCount += 1;
         }
     }
 
     private void Awake()
     {
-        GenerateNewFligh(3);
+        GenerateNewFligh(12);
     }
 }
 
@@ -44,7 +52,7 @@ public struct Flight
     public int arrivalTime;
     public int boardingTime;
     public int length;
-
+    
     public void SetLength(int x)
     {
         length = x; 
