@@ -4,6 +4,7 @@ using UnityEngine;
 
 public class TicketOffice : PointOfInterest
 {
+    [SerializeField] private int checkTime = 5;
     private void Awake()
     {
         ListOfPoints.AddNewPoint(gameObject, PointNames.TicketOffice);
@@ -16,6 +17,12 @@ public class TicketOffice : PointOfInterest
 
     protected override void CheckPassenger(Passenger passenger)
     {
-        return;
+        StartCoroutine(WaitChecking(passenger));
+    }
+
+    IEnumerator WaitChecking(Passenger passenger)
+    {
+        yield return new WaitForSeconds(checkTime + passenger.GetMood() / 20);
+        MoveQueue();
     }
 }
