@@ -45,7 +45,7 @@ public class Train : MonoBehaviour
         while (progress <= stopTime)
         {
             yield return new WaitForFixedUpdate();
-            progress += Time.fixedDeltaTime / TimeManager.TimeInstance().Scale();
+            progress += Time.fixedDeltaTime / TimeManager.Scale();
         }
         isStop = false;
     }

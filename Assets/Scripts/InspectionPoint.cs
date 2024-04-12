@@ -39,7 +39,7 @@ public class InspectionPoint : PointOfInterestWithQueue
         while (progress <= checkTime + passenger.GetMood() / 10)
         {
             yield return new WaitForFixedUpdate();
-            progress += Time.fixedDeltaTime / TimeManager.TimeInstance().Scale();
+            progress += Time.fixedDeltaTime / TimeManager.Scale();
         }
         MoveQueue();
     }

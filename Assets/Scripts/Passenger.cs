@@ -108,7 +108,7 @@ public class Passenger : Human
         while (progress <= 100)
         {
             yield return new WaitForFixedUpdate();
-            progress += Time.fixedDeltaTime / TimeManager.TimeInstance().Scale();
+            progress += Time.fixedDeltaTime / TimeManager.Scale();
         }
         
         ChoicePlace();

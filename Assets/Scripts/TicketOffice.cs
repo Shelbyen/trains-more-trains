@@ -26,7 +26,7 @@ public class TicketOffice : PointOfInterestWithQueue
         while (progress <= checkTime + passenger.GetMood() / 20)
         {
             yield return new WaitForFixedUpdate();
-            progress += Time.fixedDeltaTime / TimeManager.TimeInstance().Scale();
+            progress += Time.fixedDeltaTime / TimeManager.Scale();
         }
         MoveQueue();
     }
