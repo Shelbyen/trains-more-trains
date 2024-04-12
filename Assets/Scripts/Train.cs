@@ -41,7 +41,12 @@ public class Train : MonoBehaviour
 
     private IEnumerator WaitPassengers()
     {
-        yield return new WaitForSeconds(stopTime);
+        float progress = 0;
+        while (progress <= stopTime)
+        {
+            yield return new WaitForFixedUpdate();
+            progress += Time.fixedDeltaTime / TimeManager.Scale();
+        }
         isStop = false;
     }
 }
