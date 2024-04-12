@@ -35,8 +35,8 @@ public class FlightGenerator : MonoBehaviour
         for (int i = 0; i != count; i += 1)
         {
             string flight_name = ('0', 4 - flightCount.ToString().Length) + flightCount.ToString();
-            int l = Random.Range(5, 10);
-            int outcome = Random.Range(0, l * 5);
+            int l = Random.Range(3, 5);
+            int outcome = Random.Range(0, l * 10);
             int trainStyle = Random.Range(0, trainList.Length);
             int ar = (from + (to - from) / count * i + Random.Range(-6, 6)) * 10;
             while (timepoints.ContainsKey(ar - 20))
@@ -55,7 +55,7 @@ public class FlightGenerator : MonoBehaviour
                         type = Flight.flightType.passanger,
                         length = l,
                         outcome = outcome,
-                        income = Random.Range(0, outcome + l * 3),
+                        income = Random.Range(0, outcome + l * 5),
                         boardingTime = br,
                         arrivalTime = ar,
                         date = TimeManager.GetDay(),
