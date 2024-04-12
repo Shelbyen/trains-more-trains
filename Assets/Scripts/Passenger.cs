@@ -1,17 +1,21 @@
 using System.Collections;
 using System.Collections.Generic;
+using System.Xml.Serialization;
 using UnityEngine;
 using UnityEngine.AI;
 
 public class Passenger : Human
 {
-    [SerializeField] private string flight;
-    [SerializeField] private bool documents;
-    [SerializeField] private int mood;
-    [SerializeField] private int folly;
-    [SerializeField] private int luck;
-    [SerializeField] private bool noticed;
-    bool inQueue = false;
+    [SerializeField] string flight;
+    [SerializeField] bool documents;
+    [SerializeField] int mood;
+    [SerializeField] int folly;
+    [SerializeField] int luck;
+    [SerializeField] bool noticed;
+
+    [SerializeField] bool ticket;
+    [SerializeField] HumanActivites activity;
+    [SerializeField] bool humanInActivity = false;
 
     //если mood < 50 - идёт в киоск или кафе
     //folly отвечает за шанс совершить нарушение
@@ -20,62 +24,86 @@ public class Passenger : Human
     {
         return mood;
     }
-
-    public bool GetNoticed() { return noticed; }
-    public void SetNoticed(bool new_noticed)
+    public void SetMood(int mood)
     {
-        noticed = new_noticed;
+        this.mood = mood;
     }
 
-    private void Update()
+    public void SetActivity(HumanActivites activity) { this.activity = activity; }
+    public bool GetNoticed() { return noticed; }
+    public void SetNoticed(bool newNoticed) { noticed = newNoticed; }
+
+    private void FixedUpdate()
     {
-        if (inQueue)
+        if (activity == HumanActivites.Walk && agent.isStopped)
+        {
+            targetPlace.GetComponent<PointOfInterest>().Join(this);
+            targetPlace = null;
+            humanInActivity = true;
+        }
+
+        if (humanInActivity)
         {
             return;
         }
-        if (agent.isStopped && targetPlace != null)
+
+        switch (activity)
         {
-            targetPlace.GetComponent<PointOfInterest>().JoinQueue(this);
-            targetPlace = null;
-            inQueue = true;
+            case HumanActivites.Walk:
+                return;
+            case HumanActivites.Sit:
+                return; // Корутина на анимацию
+            case HumanActivites.Smoke:
+                return; // Корутина на анимацию
+            // И так далее хехехе
+        }
+    }
+
+    public void ChoicePlace()
+    {
+        activity = HumanActivites.Walk;
+        if (!ticket)
+        {
+            SetTargetPlace(PointNames.TicketOffice);
             return;
+        }
+        if (mood > 80)
+        {
+            SetTargetPlace(PointNames.Sits);
+            return;
+        }
+        if (mood >= 50)
+        {
+            SetTargetPlace(PointNames.SmokePlace);
+        } else if (mood >= 70)
+        {
+
         }
     }
 
     public bool CheckDocument()
     {
-        if (documents)
-        {
-            return true;
-        } else {
-            if (Random.Range(0, 100) < luck)
-            {
-                return true;
-            } else {
-                return false;
-            }
-        }
+        return documents || (Random.Range(0, 100) < luck);
     }
 
     public void SetTargetPlace(PointNames name)
     {
         List<GameObject> places = ListOfPoints.GetAllPoints(name);
-        if (places.Count == 0)
-        {
-            return;
-        }
+        if (places.Count == 0) return;
 
         int potencialPlace = 0;
-        int minimalQueue = 100;
+        int minRaiting = 0;
         for (int i = 0; i < places.Count; i++)
         {
-            int lenQueue = places[i].GetComponent<PointOfInterest>().GetLenQueue();
-            if (minimalQueue > lenQueue)
+            int raiting = places[i].GetComponent<PointOfInterest>().GetRaitingPlace();
+            if (minRaiting > raiting)
             {
-                minimalQueue = lenQueue;
+                minRaiting = raiting;
                 potencialPlace = i;
             }
         }
+
         targetPlace = places[potencialPlace];
+        Move(targetPlace.transform.position);
     }
 }

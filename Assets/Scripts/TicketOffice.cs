@@ -2,7 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class TicketOffice : PointOfInterest
+public class TicketOffice : PointOfInterestWithQueue
 {
     [SerializeField] private int checkTime = 5;
     private void Awake()
@@ -12,7 +12,7 @@ public class TicketOffice : PointOfInterest
 
     protected override void ChangePointOfInterest(Passenger passenger)
     {
-        passenger.SetTargetPlace(PointNames.WaitingRooms);
+        passenger.ChoicePlace();
     }
 
     protected override void CheckPassenger(Passenger passenger)
@@ -24,5 +24,16 @@ public class TicketOffice : PointOfInterest
     {
         yield return new WaitForSeconds(checkTime + passenger.GetMood() / 20);
         MoveQueue();
+    }
+
+    public override int GetRaitingPlace()
+    {
+        return GetLenQueue();
+    }
+
+    public override void Join(Passenger passenger)
+    {
+        JoinQueue(passenger);
+        passenger.SetActivity(HumanActivites.StayQueue);
     }
 }
