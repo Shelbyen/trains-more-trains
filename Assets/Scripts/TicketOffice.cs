@@ -22,7 +22,12 @@ public class TicketOffice : PointOfInterestWithQueue
 
     IEnumerator WaitChecking(Passenger passenger)
     {
-        yield return new WaitForSeconds(checkTime + passenger.GetMood() / 20);
+        float progress = 0;
+        while (progress <= checkTime + passenger.GetMood() / 20)
+        {
+            yield return new WaitForFixedUpdate();
+            progress += Time.fixedDeltaTime / TimeManager.TimeInstance().Scale();
+        }
         MoveQueue();
     }
 

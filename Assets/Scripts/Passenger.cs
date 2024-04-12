@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using System.Xml.Serialization;
+using UnityEditor;
 using UnityEngine;
 using UnityEngine.AI;
 
@@ -35,27 +36,21 @@ public class Passenger : Human
 
     private void FixedUpdate()
     {
-        if (activity == HumanActivites.Walk && agent.isStopped)
-        {
-            targetPlace.GetComponent<PointOfInterest>().Join(this);
-            targetPlace = null;
-            humanInActivity = true;
-        }
-
-        if (humanInActivity)
-        {
-            return;
-        }
-
         switch (activity)
         {
             case HumanActivites.Walk:
+                if (targetPlace.transform.position.x - 0.5f < transform.position.x && transform.position.x < targetPlace.transform.position.x + 0.5f)
+                {
+                    if (targetPlace.transform.position.y - 0.5f < transform.position.y && transform.position.y < targetPlace.transform.position.y + 0.5f)
+                    {
+                        targetPlace.GetComponent<PointOfInterest>().Join(this);
+                    }
+                }
                 return;
+
             case HumanActivites.Sit:
-                return; // Корутина на анимацию
-            case HumanActivites.Smoke:
-                return; // Корутина на анимацию
-            // И так далее хехехе
+                StartCoroutine(Sit());
+                return;
         }
     }
 
@@ -64,17 +59,17 @@ public class Passenger : Human
         activity = HumanActivites.Walk;
         if (!ticket)
         {
-            SetTargetPlace(PointNames.TicketOffice);
+            SetTarget(PointNames.TicketOffice);
             return;
         }
         if (mood > 80)
         {
-            SetTargetPlace(PointNames.Sits);
+            SetTarget(PointNames.Sits);
             return;
         }
         if (mood >= 50)
         {
-            SetTargetPlace(PointNames.SmokePlace);
+            SetTarget(PointNames.SmokePlace);
         } else if (mood >= 70)
         {
 
@@ -86,7 +81,7 @@ public class Passenger : Human
         return documents || (Random.Range(0, 100) < luck);
     }
 
-    public void SetTargetPlace(PointNames name)
+    public void SetTarget(PointNames name)
     {
         List<GameObject> places = ListOfPoints.GetAllPoints(name);
         if (places.Count == 0) return;
@@ -105,5 +100,17 @@ public class Passenger : Human
 
         targetPlace = places[potencialPlace];
         Move(targetPlace.transform.position);
+    }
+    
+    IEnumerator Sit()
+    {
+        float progress = 0;
+        while (progress <= 100)
+        {
+            yield return new WaitForFixedUpdate();
+            progress += Time.fixedDeltaTime / TimeManager.TimeInstance().Scale();
+        }
+        
+        ChoicePlace();
     }
 }

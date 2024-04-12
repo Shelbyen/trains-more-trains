@@ -16,6 +16,11 @@ public class Human : MonoBehaviour
         agent.updateUpAxis = false;
     }
 
+    public void SetTargetPlace(GameObject targetPlace)
+    {
+        this.targetPlace = targetPlace;
+    }
+
     public void Move(Vector2 vector2)
     {
         agent.SetDestination(vector2);

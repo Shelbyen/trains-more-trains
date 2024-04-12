@@ -32,6 +32,15 @@ public class Sits : PointOfInterest
 
     public override void Join(Passenger passenger)
     {
+        for (int i = 0; i < sits.Count;i++)
+        {
+            if (passenger == sits[i].Passenger)
+            {
+                passenger.SetActivity(HumanActivites.Sit);
+                return;
+            }
+        }
+
         List<int> clearSits = GetIdClearSits();
         if (clearSits.Count == 0)
         {
@@ -45,6 +54,7 @@ public class Sits : PointOfInterest
         sits[idPassengerPlace] = sit;
         passenger.SetActivity(HumanActivites.Walk);
         passenger.Move(sit.transform.position);
+        passenger.SetTargetPlace(sit.transform.gameObject);
     }
 
     private void Update()
