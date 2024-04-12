@@ -11,20 +11,16 @@ public class Guard : Human
     [SerializeField] bool post;
     private void FixedUpdate()
     {
-        if (!post)
-        {
-            return;
-        }
+        if (!post) { return; }
         List<RaycastHit2D> colliderHits = new List<RaycastHit2D>();
         ContactFilter2D filter = new ContactFilter2D().NoFilter();
         Physics2D.CircleCast(transform.position, radius, Vector2.up, filter, colliderHits, Mathf.Infinity);
         foreach (RaycastHit2D hit in colliderHits)
         {
             if (hit.transform.GetComponent<Passenger>().GetNoticed()) continue;
-            RaycastHit2D raycastHit = Physics2D.Raycast(transform.position, new Vector2(hit.transform.position.x - transform.position.x, hit.transform.position.y - transform.position.y), radius);
-            if (!raycastHit) continue;
+            RaycastHit2D raycastHit = Physics2D.Raycast(transform.position, new Vector2(hit.transform.position.x - transform.position.x, hit.transform.position.y - transform.position.y), radius + 1, 1<<6);
+            if (raycastHit.collider == null) continue;
             hit.transform.GetComponent<Passenger>().SetNoticed(true);
-            Debug.Log("FFFF");
         }
     }
 }

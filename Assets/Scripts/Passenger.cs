@@ -16,7 +16,6 @@ public class Passenger : Human
 
     [SerializeField] bool ticket;
     [SerializeField] HumanActivites activity;
-    [SerializeField] bool humanInActivity = false;
 
     //если mood < 50 - идёт в киоск или кафе
     //folly отвечает за шанс совершить нарушение
