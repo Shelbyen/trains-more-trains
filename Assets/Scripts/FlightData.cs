@@ -32,7 +32,7 @@ public class FlightData : MonoBehaviour
     {
         trname = train_name;
         ID.text = data.flightName;
-        Date.text = TimeManager.TimeInstance().CalculateDate(data.date) + " " + TimeManager.TimeInstance().CalculateTime(data.arrivalTime) + "-" + TimeManager.TimeInstance().CalculateTime(data.arrivalTime + data.boardingTime);
+        Date.text = TimeManager.CalculateDate(data.date) + " " + TimeManager.CalculateTime(data.arrivalTime) + "-" + TimeManager.CalculateTime(data.arrivalTime + data.boardingTime);
         Incoming.text = "Посадка " + data.income;
         Outcoming.text = "Высадка " + data.outcome;
         Van.text = "Вагон х" + data.length;

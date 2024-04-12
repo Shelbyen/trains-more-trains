@@ -7,12 +7,14 @@ using Unity.VisualScripting;
 
 public class Clock : MonoBehaviour
 {
+    private FlightGenerator generator;
     [SerializeField] private TextMeshProUGUI time;
     [SerializeField] private TextMeshProUGUI date;
     private float progress;
 
     private void Awake()
     {
+        generator = FindObjectsOfType<FlightGenerator>()[0];
         StartCoroutine(Second());
     }
 
@@ -21,19 +23,20 @@ public class Clock : MonoBehaviour
         while (true)
         {
             yield return new WaitForFixedUpdate();
-            progress += Time.fixedDeltaTime / TimeManager.TimeInstance().Scale();
+            progress += Time.fixedDeltaTime / TimeManager.Scale();
             if (progress >= 1)
             {
-                TimeManager.TimeInstance().AddSecond();
-                time.text = TimeManager.TimeInstance().ReturnCurent();
-                date.text = TimeManager.TimeInstance().ReturnCurentDate();
+                TimeManager.AddSecond();
+                time.text = TimeManager.ReturnCurent();
+                date.text = TimeManager.ReturnCurentDate();
                 progress = 0;
+                generator.CheckTimepoint(TimeManager.GetSecond());
             }
         }
     }
 
     public void SetScale(float scale)
     {
-        TimeManager.TimeInstance().SetScale(scale);
+        TimeManager.SetScale(scale);
     }
 }

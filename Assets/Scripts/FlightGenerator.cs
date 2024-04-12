@@ -5,7 +5,8 @@ using UnityEngine;
 
 public class FlightGenerator : MonoBehaviour
 {
-    [SerializeField] private Dictionary<string, Flight> flightList = new Dictionary<string, Flight>();
+    private Dictionary<string, Flight> flightList = new Dictionary<string, Flight>();
+    private Dictionary<int, string> timepoints = new Dictionary<int, string>();
     [SerializeField] private GameObject DataPref;
     [SerializeField] private Transform ScrollWindowParent;
     [SerializeField] private GameObject ObjectSpace;
@@ -24,6 +25,11 @@ public class FlightGenerator : MonoBehaviour
         return flightList[fl_name];
     }
 
+    public void CheckTimepoint(int sec)
+    {
+        if (timepoints.ContainsKey(sec)) GetComponent<TrainBuilder>().CreateTrain(flightList[timepoints[sec]]);
+    }
+
     public void GenerateNewFligh(int count, int from, int to)
     {
         for (int i = 0; i != count; i += 1)
@@ -32,6 +38,8 @@ public class FlightGenerator : MonoBehaviour
             int l = Random.Range(5, 10);
             int outcome = Random.Range(0, l * 5);
             int trainStyle = Random.Range(0, trainList.Length);
+            int ar = (from + (to - from) / count * i + Random.Range(-6, 6)) * 10;
+            int br = 60 + Random.Range(0, 30);
             flightList.Add( flight_name,
                     new Flight()
                     {
@@ -40,9 +48,9 @@ public class FlightGenerator : MonoBehaviour
                         length = l,
                         outcome = outcome,
                         income = Random.Range(0, outcome + l * 3),
-                        boardingTime = 60 + Random.Range(0, 30),
-                        arrivalTime = (from + (to-from)/count*i + Random.Range(-6, 6)) * 10,
-                        date = TimeManager.TimeInstance().GetDay(),
+                        boardingTime = br,
+                        arrivalTime = ar,
+                        date = TimeManager.GetDay(),
                         trainType = trainList[trainStyle],
                         vanType = vanList[trainStyle]
                     });
@@ -54,6 +62,8 @@ public class FlightGenerator : MonoBehaviour
                 ObjectSpace.GetComponent<RectTransform>().sizeDelta.x,
                 -110 -100 * flightCount);
             flightCount += 1;
+            timepoints.Add(ar, flight_name);
+            timepoints.Add(ar + br, flight_name);
         }
     }
 
@@ -78,6 +88,7 @@ public class Flight
     public Sprite vanType;
 
     public int line;
+    public bool isHere;
 
     public enum flightType
     {
