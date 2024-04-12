@@ -39,7 +39,15 @@ public class FlightGenerator : MonoBehaviour
             int outcome = Random.Range(0, l * 5);
             int trainStyle = Random.Range(0, trainList.Length);
             int ar = (from + (to - from) / count * i + Random.Range(-6, 6)) * 10;
+            while (timepoints.ContainsKey(ar - 20))
+            {
+                ar += 1;
+            }
             int br = 60 + Random.Range(0, 30);
+            while (timepoints.ContainsKey(br + ar + 20))
+            {
+                br += 1;
+            }
             flightList.Add( flight_name,
                     new Flight()
                     {
@@ -62,8 +70,8 @@ public class FlightGenerator : MonoBehaviour
                 ObjectSpace.GetComponent<RectTransform>().sizeDelta.x,
                 -110 -100 * flightCount);
             flightCount += 1;
-            timepoints.Add(ar, flight_name);
-            timepoints.Add(ar + br, flight_name);
+            timepoints.Add(ar - 20, flight_name);
+            timepoints.Add(ar + br + 20, flight_name);
         }
     }
 

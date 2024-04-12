@@ -93,6 +93,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 5544749427868885813}
+  - component: {fileID: 6472847237403195692}
   m_Layer: 0
   m_Name: Train
   m_TagString: Untagged
@@ -116,3 +117,61 @@ Transform:
   m_Father: {fileID: 0}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &6472847237403195692
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5544749427868885814}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: a972f8a5f9a5bb8488eb931716a9b5c1, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  stopPosition: {fileID: 0}
+  animationCurve:
+    serializedVersion: 2
+    m_Curve:
+    - serializedVersion: 3
+      time: -0.030158997
+      value: 0
+      inSlope: 1.0704623
+      outSlope: 1.0704623
+      tangentMode: 0
+      weightedMode: 0
+      inWeight: 0
+      outWeight: 0.22631799
+    - serializedVersion: 3
+      time: 12.484457
+      value: 4.4909325
+      inSlope: -0.0028367043
+      outSlope: -0.0028367043
+      tangentMode: 0
+      weightedMode: 0
+      inWeight: 0.40464503
+      outWeight: 0.33333334
+    - serializedVersion: 3
+      time: 25.07584
+      value: 5.935489
+      inSlope: 0.44911322
+      outSlope: 0.44911322
+      tangentMode: 0
+      weightedMode: 0
+      inWeight: 0.33333334
+      outWeight: 0.33333334
+    - serializedVersion: 3
+      time: 50.001144
+      value: 16.000193
+      inSlope: 0
+      outSlope: 0
+      tangentMode: 0
+      weightedMode: 0
+      inWeight: 0
+      outWeight: 0
+    m_PreInfinity: 2
+    m_PostInfinity: 2
+    m_RotationOrder: 4
+  isLeaving: 0
+  isStop: 0
+  stopTime: 0

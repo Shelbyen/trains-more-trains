@@ -9,6 +9,9 @@ public class TrainBuilder : MonoBehaviour
     [SerializeField] private GameObject VanPref;
     private Dictionary<string, GameObject> flightList = new Dictionary<string, GameObject>();
 
+    [SerializeField] private Transform[] beacons;
+    [SerializeField] private float spawnDistance;
+
     public void CreateTrain(Flight flight)
     {
         if (!flight.isHere)
@@ -16,6 +19,9 @@ public class TrainBuilder : MonoBehaviour
             flight.isHere = true;
             GameObject train = Instantiate(TrainPref);
             train.transform.GetChild(0).GetComponent<SpriteRenderer>().sprite = flight.trainType;
+            train.transform.position = new Vector2(spawnDistance, beacons[flight.line].position.y);
+            train.GetComponent<Train>().stopPosition = beacons[flight.line];
+            train.GetComponent<Train>().stopTime = flight.boardingTime;
             for (int l = 1; l <= flight.length; l += 1)
             {
                 GameObject vanelement = Instantiate(VanPref, train.transform);
