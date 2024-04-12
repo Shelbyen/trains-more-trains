@@ -139,7 +139,19 @@ MonoBehaviour:
       m_Image: {fileID: 0}
   m_OnValueChanged:
     m_PersistentCalls:
-      m_Calls: []
+      m_Calls:
+      - m_Target: {fileID: -393487185532010784}
+        m_TargetAssemblyTypeName: FlightData, Assembly-CSharp
+        m_MethodName: SetLine
+        m_Mode: 2
+        m_Arguments:
+          m_ObjectArgument: {fileID: 1381081087403923348}
+          m_ObjectArgumentAssemblyTypeName: TMPro.TMP_Dropdown, Unity.TextMeshPro
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
   m_AlphaFadeSpeed: 0.15
 --- !u!1 &1381081087436741094
 GameObject:
@@ -1237,7 +1249,9 @@ MonoBehaviour:
   Incoming: {fileID: 1381081088609729959}
   Outcoming: {fileID: 1381081087957175391}
   Van: {fileID: 1381081088089344749}
+  VanIm: {fileID: 1381081089157635344}
   Train: {fileID: 1381081088747194316}
+  TrainIm: {fileID: 1381081088357059802}
 --- !u!1 &1381081088357059812
 GameObject:
   m_ObjectHideFlags: 0

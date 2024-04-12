@@ -267,67 +267,14 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 193395080}
-  - component: {fileID: 193395079}
   - component: {fileID: 193395081}
   m_Layer: 0
-  m_Name: Triangle
+  m_Name: GameManager
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
   m_IsActive: 1
---- !u!212 &193395079
-SpriteRenderer:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 193395078}
-  m_Enabled: 1
-  m_CastShadows: 0
-  m_ReceiveShadows: 0
-  m_DynamicOccludee: 1
-  m_StaticShadowCaster: 0
-  m_MotionVectors: 1
-  m_LightProbeUsage: 1
-  m_ReflectionProbeUsage: 1
-  m_RayTracingMode: 0
-  m_RayTraceProcedural: 0
-  m_RenderingLayerMask: 1
-  m_RendererPriority: 0
-  m_Materials:
-  - {fileID: 10754, guid: 0000000000000000f000000000000000, type: 0}
-  m_StaticBatchInfo:
-    firstSubMesh: 0
-    subMeshCount: 0
-  m_StaticBatchRoot: {fileID: 0}
-  m_ProbeAnchor: {fileID: 0}
-  m_LightProbeVolumeOverride: {fileID: 0}
-  m_ScaleInLightmap: 1
-  m_ReceiveGI: 1
-  m_PreserveUVs: 0
-  m_IgnoreNormalsForChartDetection: 0
-  m_ImportantGI: 0
-  m_StitchLightmapSeams: 1
-  m_SelectedEditorRenderState: 0
-  m_MinimumChartSize: 4
-  m_AutoUVMaxDistance: 0.5
-  m_AutoUVMaxAngle: 89
-  m_LightmapParameters: {fileID: 0}
-  m_SortingLayerID: 0
-  m_SortingLayer: 0
-  m_SortingOrder: 0
-  m_Sprite: {fileID: 7482667652216324306, guid: 75f5f34dc1b5347e0b8351032682f224, type: 3}
-  m_Color: {r: 1, g: 1, b: 1, a: 1}
-  m_FlipX: 0
-  m_FlipY: 0
-  m_DrawMode: 0
-  m_Size: {x: 1, y: 1}
-  m_AdaptiveModeThreshold: 0.5
-  m_SpriteTileMode: 0
-  m_WasSpriteAssigned: 1
-  m_MaskInteraction: 0
-  m_SpriteSortPoint: 0
 --- !u!4 &193395080
 Transform:
   m_ObjectHideFlags: 0
@@ -355,10 +302,15 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: b5862aae0a0183a4cba68f9701a14c6e, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  flightList: []
   DataPref: {fileID: 1381081088165426800, guid: aa2070ac12bec164a8496aa22b5c6dc8, type: 3}
   ScrollWindowParent: {fileID: 470219944}
   ObjectSpace: {fileID: 989840935}
+  trainList:
+  - {fileID: 21300000, guid: 0aba995a4ce9ada4ebfdaecf2bd98cf6, type: 3}
+  - {fileID: 21300000, guid: b7476237b24d3f04ab619eeff0628a54, type: 3}
+  vanList:
+  - {fileID: 21300000, guid: 2f5fbdc875ab6fe4cb4d6371d16755ec, type: 3}
+  - {fileID: 21300000, guid: 3052fc126b5a9a94b9057bdd88ce9a89, type: 3}
 --- !u!1 &197559972
 GameObject:
   m_ObjectHideFlags: 0
@@ -2214,7 +2166,7 @@ MonoBehaviour:
   m_Elasticity: 0.1
   m_Inertia: 1
   m_DecelerationRate: 0.135
-  m_ScrollSensitivity: 1
+  m_ScrollSensitivity: 10
   m_Viewport: {fileID: 470219944}
   m_HorizontalScrollbar: {fileID: 0}
   m_VerticalScrollbar: {fileID: 1862031533}

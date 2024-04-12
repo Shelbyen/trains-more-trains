@@ -11,15 +11,34 @@ public class FlightData : MonoBehaviour
     [SerializeField] private TextMeshProUGUI Incoming;
     [SerializeField] private TextMeshProUGUI Outcoming;
     [SerializeField] private TextMeshProUGUI Van;
+    [SerializeField] private Image VanIm;
     [SerializeField] private TextMeshProUGUI Train;
+    [SerializeField] private Image TrainIm;
 
-    public void SetData(string id, string date, int incoming, int outcoming, int length)
+    private string trname;
+    private FlightGenerator generator;
+
+    private void Awake()
     {
-        ID.text = id;
-        Date.text = date;
-        Incoming.text = "Посадка " + incoming;
-        Outcoming.text = "Высадка " + outcoming;
-        Van.text = "Вагон х" + length;
-        Train.text = "Тэп70";
+       generator = FindObjectsOfType<FlightGenerator>()[0];
     }
+
+    public void SetLine(TMP_Dropdown dropdown)
+    {
+        generator.SetLine(trname, dropdown.value);
+    }
+
+    public void SetData(Flight data, string train_name)
+    {
+        trname = train_name;
+        ID.text = data.flightName;
+        Date.text = TimeManager.TimeInstance().CalculateDate(data.date) + " " + TimeManager.TimeInstance().CalculateTime(data.arrivalTime) + "-" + TimeManager.TimeInstance().CalculateTime(data.arrivalTime + data.boardingTime);
+        Incoming.text = "Посадка " + data.income;
+        Outcoming.text = "Высадка " + data.outcome;
+        Van.text = "Вагон х" + data.length;
+        Train.text = data.trainType.name;
+        TrainIm.sprite = data.trainType;
+        VanIm.sprite = data.vanType;
+    }
+    //
 }
