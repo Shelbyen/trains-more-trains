@@ -4,7 +4,6 @@ using UnityEngine;
 
 public abstract class PointOfInterestWithQueue : PointOfInterest
 {
-    [SerializeField] private Vector2 beginningQueue;
     [SerializeField] private Vector2 directionQueue;
     private List<Passenger> peopleInQueue;
 
@@ -14,7 +13,7 @@ public abstract class PointOfInterestWithQueue : PointOfInterest
     }
     public Vector2 GetQueuePosition()
     {
-        return new Vector2(beginningQueue.x + directionQueue.x * peopleInQueue.Count, beginningQueue.y + directionQueue.y * peopleInQueue.Count);
+        return new Vector2(transform.position.x + directionQueue.x * peopleInQueue.Count, transform.position.y + directionQueue.y * peopleInQueue.Count);
     }
 
     public int GetLenQueue() { return peopleInQueue.Count; }
@@ -29,7 +28,7 @@ public abstract class PointOfInterestWithQueue : PointOfInterest
         peopleInQueue.RemoveAt(0);
         for (int i = 0; i < peopleInQueue.Count; i++)
         {
-            peopleInQueue[i].Move(new Vector2(beginningQueue.x + directionQueue.x * i, beginningQueue.y + directionQueue.y * i));
+            peopleInQueue[i].Move(new Vector2(transform.position.x + directionQueue.x * i, transform.position.y + directionQueue.y * i));
         }
         CheckPassenger(peopleInQueue[0]);
     }
