@@ -7,7 +7,6 @@ using UnityEngine.AI;
 
 public class Passenger : Human
 {
-    [SerializeField] string flight;
     [SerializeField] bool documents;
     [SerializeField] int mood;
     [SerializeField] int folly;
@@ -16,6 +15,13 @@ public class Passenger : Human
 
     [SerializeField] public bool ticket;
     [SerializeField] HumanActivites activity;
+
+    private Flight flight;
+
+    public void SetFlight(Flight data)
+    {
+        flight = data;
+    }
 
     //если mood < 50 - идёт в киоск или кафе
     //folly отвечает за шанс совершить нарушение
