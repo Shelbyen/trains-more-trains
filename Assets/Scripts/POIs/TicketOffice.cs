@@ -12,6 +12,7 @@ public class TicketOffice : PointOfInterestWithQueue
 
     protected override void ChangePointOfInterest(Passenger passenger)
     {
+        passenger.ticket = true;
         passenger.ChoicePlace();
     }
 
@@ -28,7 +29,6 @@ public class TicketOffice : PointOfInterestWithQueue
             yield return new WaitForFixedUpdate();
             progress += Time.fixedDeltaTime / TimeManager.Scale();
         }
-        MoveQueue();
     }
 
     public override int GetRaitingPlace()

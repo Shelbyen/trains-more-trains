@@ -41,6 +41,5 @@ public class InspectionPoint : PointOfInterestWithQueue
             yield return new WaitForFixedUpdate();
             progress += Time.fixedDeltaTime / TimeManager.Scale();
         }
-        MoveQueue();
     }
 }

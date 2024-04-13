@@ -5,11 +5,15 @@ using UnityEngine;
 public abstract class PointOfInterestWithQueue : PointOfInterest
 {
     [SerializeField] private Vector2 directionQueue;
-    private List<Passenger> peopleInQueue;
+    private List<Passenger> peopleInQueue = new List<Passenger>();
 
     public void JoinQueue(Passenger passenger)
     {
         peopleInQueue.Add(passenger);
+        if (GetLenQueue() == 1)
+        {
+            MoveQueue();
+        }
     }
     public Vector2 GetQueuePosition()
     {

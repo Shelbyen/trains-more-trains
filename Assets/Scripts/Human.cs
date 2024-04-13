@@ -14,6 +14,7 @@ public class Human : MonoBehaviour
         agent = GetComponent<NavMeshAgent>();
         agent.updateRotation = false;
         agent.updateUpAxis = false;
+        Move(targetPlace.transform.position);
     }
 
     public void SetTargetPlace(GameObject targetPlace)

@@ -4,10 +4,14 @@ using UnityEngine;
 
 public static class ListOfPoints
 {
-    private static Dictionary<PointNames, List<GameObject>> allPoints = new Dictionary<PointNames, List<GameObject>>();
+    private static Dictionary<PointNames, List<GameObject>> allPoints = new();
 
     public static void AddNewPoint(GameObject pointOfInterest, PointNames name)
     {
+        if (!allPoints.ContainsKey(name))
+        {
+            allPoints.Add(name, new List<GameObject>());
+        }
         allPoints[name].Add(pointOfInterest);
     }
 

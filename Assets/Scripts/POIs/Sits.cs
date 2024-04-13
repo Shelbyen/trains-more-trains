@@ -5,14 +5,16 @@ using UnityEngine;
 
 public class Sits : PointOfInterest
 {
-    [SerializeField] List<Sit> sits;
+    [SerializeField] private List<Sit> sits;
 
     private void Awake()
     {
+        List<Sit> sits = new List<Sit>();
         foreach (Transform trans in transform.GetComponentsInChildren<Transform>())
         {
             sits.Add(new Sit(trans, null));
         }
+        ListOfPoints.AddNewPoint(gameObject, PointNames.TicketOffice);
     }
 
     public override int GetRaitingPlace()
@@ -55,12 +57,6 @@ public class Sits : PointOfInterest
         passenger.SetActivity(HumanActivites.Walk);
         passenger.Move(sit.transform.position);
         passenger.SetTargetPlace(sit.transform.gameObject);
-    }
-
-    private void Update()
-    {
-        if (sits.Count == 0) return;
-
     }
 }
 

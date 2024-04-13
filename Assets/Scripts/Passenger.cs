@@ -14,7 +14,7 @@ public class Passenger : Human
     [SerializeField] int luck;
     [SerializeField] bool noticed;
 
-    [SerializeField] bool ticket;
+    [SerializeField] public bool ticket;
     [SerializeField] HumanActivites activity;
 
     //если mood < 50 - идёт в киоск или кафе
@@ -38,9 +38,9 @@ public class Passenger : Human
         switch (activity)
         {
             case HumanActivites.Walk:
-                if (targetPlace.transform.position.x - 0.5f < transform.position.x && transform.position.x < targetPlace.transform.position.x + 0.5f)
+                if (targetPlace.transform.position.x - 0.3f < transform.position.x && transform.position.x < targetPlace.transform.position.x + 0.3f)
                 {
-                    if (targetPlace.transform.position.y - 0.5f < transform.position.y && transform.position.y < targetPlace.transform.position.y + 0.5f)
+                    if (targetPlace.transform.position.y - 0.3f < transform.position.y && transform.position.y < targetPlace.transform.position.y + 0.3f)
                     {
                         targetPlace.GetComponent<PointOfInterest>().Join(this);
                     }
@@ -61,6 +61,7 @@ public class Passenger : Human
             SetTarget(PointNames.TicketOffice);
             return;
         }
+        Debug.Log(ticket);
         if (mood > 80)
         {
             SetTarget(PointNames.Sits);
