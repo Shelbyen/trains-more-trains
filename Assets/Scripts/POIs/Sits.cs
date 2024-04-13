@@ -9,12 +9,12 @@ public class Sits : PointOfInterest
 
     private void Awake()
     {
-        List<Sit> sits = new List<Sit>();
+        sits = new List<Sit>();
         foreach (Transform trans in transform.GetComponentsInChildren<Transform>())
         {
             sits.Add(new Sit(trans, null));
         }
-        ListOfPoints.AddNewPoint(gameObject, PointNames.TicketOffice);
+        ListOfPoints.AddNewPoint(gameObject, PointNames.Sits);
     }
 
     public override int GetRaitingPlace()
@@ -27,7 +27,10 @@ public class Sits : PointOfInterest
         List<int> clearSits = new List<int>();
         for (int i = 0; i < sits.Count; i++)
         {
-            if (sits[i].Passenger == null) clearSits[i] = i;
+            if (sits[i].Passenger == null)
+            {
+                clearSits.Add(i);
+            }
         }
         return clearSits;
     }
@@ -39,6 +42,7 @@ public class Sits : PointOfInterest
             if (passenger == sits[i].Passenger)
             {
                 passenger.SetActivity(HumanActivites.Sit);
+                sits[i].ClearSit();
                 return;
             }
         }
@@ -55,19 +59,25 @@ public class Sits : PointOfInterest
         sit.Passenger = passenger;
         sits[idPassengerPlace] = sit;
         passenger.SetActivity(HumanActivites.Walk);
-        passenger.Move(sit.transform.position);
-        passenger.SetTargetPlace(sit.transform.gameObject);
+
+        passenger.SetTargetPlace(transform.gameObject);
+        passenger.Move(sit.sitTransform.position);
     }
 }
 
 struct Sit
 {
-    public Transform transform { get; }
+    public Transform sitTransform { get; }
     public Passenger Passenger { get; set; }
 
-    public Sit(Transform transform, Passenger passenger)
+    public Sit(Transform sitTransform, Passenger passenger)
     {
-        this.transform = transform;
+        this.sitTransform = sitTransform;
         this.Passenger = passenger;
+    }
+
+    public void ClearSit()
+    {
+        Passenger = null;
     }
 }
