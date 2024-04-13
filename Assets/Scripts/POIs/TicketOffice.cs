@@ -16,21 +16,6 @@ public class TicketOffice : PointOfInterestWithQueue
         passenger.ChoicePlace();
     }
 
-    protected override void CheckPassenger(Passenger passenger)
-    {
-        StartCoroutine(WaitChecking(passenger));
-    }
-
-    IEnumerator WaitChecking(Passenger passenger)
-    {
-        float progress = 0;
-        while (progress <= checkTime + passenger.GetMood() / 20)
-        {
-            yield return new WaitForFixedUpdate();
-            progress += Time.fixedDeltaTime / TimeManager.Scale();
-        }
-    }
-
     public override int GetRaitingPlace()
     {
         return GetLenQueue();
@@ -40,5 +25,10 @@ public class TicketOffice : PointOfInterestWithQueue
     {
         JoinQueue(passenger);
         passenger.SetActivity(HumanActivites.StayQueue);
+    }
+
+    protected override float GetWaitingTime(Passenger passenger)
+    {
+        return checkTime + (100 - passenger.GetMood()) / 20;
     }
 }

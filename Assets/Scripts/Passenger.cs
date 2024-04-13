@@ -93,7 +93,7 @@ public class Passenger : Human
         if (places.Count == 0) return;
 
         int potencialPlace = 0;
-        int minRaiting = 0;
+        int minRaiting = places[0].GetComponent<PointOfInterest>().GetRaitingPlace();
         for (int i = 0; i < places.Count; i++)
         {
             int raiting = places[i].GetComponent<PointOfInterest>().GetRaitingPlace();

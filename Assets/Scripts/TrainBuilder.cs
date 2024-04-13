@@ -25,7 +25,7 @@ public class TrainBuilder : MonoBehaviour
             for (int l = 1; l <= flight.length; l += 1)
             {
                 GameObject vanelement = Instantiate(VanPref, train.transform);
-                vanelement.transform.localPosition = new Vector2(-8.4f * l, -0.1f);
+                vanelement.transform.localPosition = new Vector2(-8.4f * l * 1.74f, -0.1f);
                 vanelement.GetComponent<SpriteRenderer>().sprite = flight.vanType;
             }
             flightList.Add(flight.flightName, train);

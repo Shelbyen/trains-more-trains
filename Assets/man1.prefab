@@ -98,9 +98,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: b10ff7bcdc9c23c42bac5ef3b7b4739e, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  targetPlace: {fileID: 0}
   documents: 1
-  mood: 1000
+  mood: 100
   folly: 0
   luck: 0
   noticed: 0

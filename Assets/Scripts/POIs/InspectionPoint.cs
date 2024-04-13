@@ -28,18 +28,8 @@ public class InspectionPoint : PointOfInterestWithQueue
         passenger.ChoicePlace();
     }
 
-    protected override void CheckPassenger(Passenger passenger)
+    protected override float GetWaitingTime(Passenger passenger)
     {
-        StartCoroutine(WaitChecking(passenger));
-    }
-
-    IEnumerator WaitChecking(Passenger passenger)
-    {
-        float progress = 0;
-        while (progress <= checkTime + passenger.GetMood() / 10)
-        {
-            yield return new WaitForFixedUpdate();
-            progress += Time.fixedDeltaTime / TimeManager.Scale();
-        }
+        return checkTime + (100 - passenger.GetMood()) / 10;
     }
 }

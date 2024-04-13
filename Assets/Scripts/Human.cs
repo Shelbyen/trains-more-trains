@@ -6,7 +6,7 @@ using UnityEngine.AI;
 
 public class Human : MonoBehaviour
 {
-    [SerializeField] protected GameObject targetPlace;
+    protected GameObject targetPlace;
     protected NavMeshAgent agent;
 
     private void Awake()
@@ -14,7 +14,10 @@ public class Human : MonoBehaviour
         agent = GetComponent<NavMeshAgent>();
         agent.updateRotation = false;
         agent.updateUpAxis = false;
-        Move(targetPlace.transform.position);
+        if (targetPlace != null )
+        {
+            Move(targetPlace.transform.position);
+        }
     }
 
     public void SetTargetPlace(GameObject targetPlace)
