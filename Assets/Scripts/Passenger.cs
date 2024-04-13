@@ -61,7 +61,7 @@ public class Passenger : Human
             SetTarget(PointNames.TicketOffice);
             return;
         }
-        Debug.Log(ticket);
+
         if (mood > 80)
         {
             SetTarget(PointNames.Sits);
