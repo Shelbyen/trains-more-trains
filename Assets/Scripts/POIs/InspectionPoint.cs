@@ -35,6 +35,6 @@ public class InspectionPoint : PointOfInterestWithQueue
 
     protected override float GetWaitingTime(Passenger passenger)
     {
-        return checkTime + (100 - passenger.GetMood()) / 10;
+        return checkTime + (100 - passenger.GetMood()) / 20;
     }
 }

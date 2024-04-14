@@ -13,6 +13,7 @@ public abstract class PointOfInterestWithQueue : PointOfInterest
         peopleInQueue.Add(passenger);
         if (!queueIsStart)
         {
+            queueIsStart = true;
             StartCoroutine(MoveQueue());
         }
     }
@@ -35,7 +36,6 @@ public abstract class PointOfInterestWithQueue : PointOfInterest
 
     IEnumerator MoveQueue()
     {
-        queueIsStart = true;
         float progress = 0;
         while (progress <= GetWaitingTime(peopleInQueue[0]))
         {
