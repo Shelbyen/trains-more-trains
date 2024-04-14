@@ -12,6 +12,7 @@ public class Passenger : Human
     [SerializeField] int folly;
     [SerializeField] int luck;
     [SerializeField] bool noticed;
+    bool inAction = false;
 
     [SerializeField] public bool ticket;
     [SerializeField] HumanActivites activity;
@@ -42,6 +43,7 @@ public class Passenger : Human
     private new void FixedUpdate()
     {
         base.FixedUpdate();
+        if (inAction) { return; }
         switch (activity)
         {
             case HumanActivites.Walk:
@@ -62,6 +64,9 @@ public class Passenger : Human
             case HumanActivites.Sit:
                 StartCoroutine(Sit());
                 return;
+            case HumanActivites.Smoke:
+                StartCoroutine(Smoke());
+                return;
         }
     }
 
@@ -76,15 +81,17 @@ public class Passenger : Human
 
         if (mood > 80)
         {
-            SetTarget(PointNames.Sits);
-            return;
-        }
-        if (mood >= 50)
+            if (activity != HumanActivites.Sit)
+            {
+                SetTarget(PointNames.Sits);
+            }
+        } else if (mood >= 50)
         {
-            SetTarget(PointNames.SmokePlace);
-        } else if (mood >= 70)
-        {
-
+            if (activity != HumanActivites.Smoke)
+            {
+                SetTarget(PointNames.SmokePlace);
+            }
+            
         }
     }
 
@@ -116,13 +123,28 @@ public class Passenger : Human
     
     IEnumerator Sit()
     {
+        inAction = true;
         float progress = 0;
         while (progress <= 100)
         {
             yield return new WaitForFixedUpdate();
             progress += Time.fixedDeltaTime / TimeManager.Scale();
         }
-        
+        mood -= 10;
         ChoicePlace();
+        inAction = false;
+    }
+    IEnumerator Smoke()
+    {
+        inAction = true;
+        float progress = 0;
+        while (progress <= 100)
+        {
+            yield return new WaitForFixedUpdate();
+            progress += Time.fixedDeltaTime / TimeManager.Scale();
+        }
+        mood += 10;
+        ChoicePlace();
+        inAction = false;
     }
 }

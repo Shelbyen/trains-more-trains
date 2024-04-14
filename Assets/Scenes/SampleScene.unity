@@ -153,7 +153,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   directionQueue: {x: 1, y: 0}
-  checkTime: 5
+  checkTime: 3
 --- !u!4 &18051226
 Transform:
   m_ObjectHideFlags: 0
@@ -21868,6 +21868,53 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 520012477}
   m_CullTransparentMesh: 1
+--- !u!1 &579196851
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 579196852}
+  - component: {fileID: 579196853}
+  m_Layer: 0
+  m_Name: SmokePlace
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &579196852
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 579196851}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 2.46, y: 9.14, z: 0.6672078}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 0}
+  m_RootOrder: 21
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &579196853
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 579196851}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: f30d93360d9411647b4c9539902c6b10, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  actionZone:
+  - {x: -33.08, y: 7.22}
+  - {x: -2.47, y: 9.14}
 --- !u!1 &664296440
 GameObject:
   m_ObjectHideFlags: 0
@@ -31053,7 +31100,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   directionQueue: {x: 1, y: 0}
-  checkTime: 5
+  checkTime: 3
 --- !u!4 &1320330584
 Transform:
   m_ObjectHideFlags: 0
@@ -33123,4 +33170,4 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   directionQueue: {x: 1, y: 0}
-  checkTime: 5
+  checkTime: 3

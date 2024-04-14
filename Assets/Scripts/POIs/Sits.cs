@@ -52,6 +52,7 @@ public class Sits : PointOfInterest
         {
             passenger.SetMood(passenger.GetMood() - 20);
             passenger.ChoicePlace();
+            return;
         }
 
         int idPassengerPlace = clearSits[Random.Range(0, clearSits.Count)];
