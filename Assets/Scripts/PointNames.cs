@@ -9,5 +9,6 @@ public enum PointNames
     Store = 2,
     WaterCloset = 3,
     Platform = 4,
-    SmokePlace = 5
+    SmokePlace = 5,
+    InspectionPoint = 6
 }

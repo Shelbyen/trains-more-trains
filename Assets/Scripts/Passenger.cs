@@ -39,16 +39,22 @@ public class Passenger : Human
     public bool GetNoticed() { return noticed; }
     public void SetNoticed(bool newNoticed) { noticed = newNoticed; }
 
-    private void FixedUpdate()
+    private new void FixedUpdate()
     {
+        base.FixedUpdate();
         switch (activity)
         {
             case HumanActivites.Walk:
-                if (targetPlace.transform.position.x - 0.3f < transform.position.x && transform.position.x < targetPlace.transform.position.x + 0.3f)
+                Vector2 newPos = targetPlace.GetPosition(this);
+                if (agent.pathEndPosition.x != newPos.x || agent.pathEndPosition.y != newPos.y)
                 {
-                    if (targetPlace.transform.position.y - 0.3f < transform.position.y && transform.position.y < targetPlace.transform.position.y + 0.3f)
+                    Move(newPos);
+                }
+                if (newPos.x - 0.3f < transform.position.x && transform.position.x < newPos.x + 0.3f)
+                {
+                    if (newPos.y - 0.3f < transform.position.y && transform.position.y < newPos.y + 0.3f)
                     {
-                        targetPlace.GetComponent<PointOfInterest>().Join(this);
+                        targetPlace.Join(this);
                     }
                 }
                 return;
@@ -89,14 +95,14 @@ public class Passenger : Human
 
     public void SetTarget(PointNames name)
     {
-        List<GameObject> places = ListOfPoints.GetAllPoints(name);
+        List<PointOfInterest> places = ListOfPoints.GetAllPoints(name);
         if (places.Count == 0) return;
 
         int potencialPlace = 0;
-        int minRaiting = places[0].GetComponent<PointOfInterest>().GetRaitingPlace();
+        int minRaiting = places[0].GetRaitingPlace();
         for (int i = 0; i < places.Count; i++)
         {
-            int raiting = places[i].GetComponent<PointOfInterest>().GetRaitingPlace();
+            int raiting = places[i].GetRaitingPlace();
             if (minRaiting > raiting)
             {
                 minRaiting = raiting;
@@ -105,7 +111,7 @@ public class Passenger : Human
         }
 
         targetPlace = places[potencialPlace];
-        Move(targetPlace.transform.position);
+        Move(targetPlace.GetPosition(this));
     }
     
     IEnumerator Sit()

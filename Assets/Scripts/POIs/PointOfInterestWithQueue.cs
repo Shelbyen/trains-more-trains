@@ -16,9 +16,16 @@ public abstract class PointOfInterestWithQueue : PointOfInterest
             StartCoroutine(MoveQueue());
         }
     }
-    public Vector2 GetQueuePosition()
+    public override Vector2 GetPosition(Passenger passenger)
     {
-        return new Vector2(transform.position.x + directionQueue.x * peopleInQueue.Count * 20, transform.position.y + directionQueue.y * peopleInQueue.Count * 20);
+        for (int i = 0; i < peopleInQueue.Count; i++)
+        {
+            if (peopleInQueue[i] == passenger)
+            {
+                return new Vector2(transform.position.x + directionQueue.x * i * 2, transform.position.y + directionQueue.y * i * 2);
+            }
+        }
+        return new Vector2(transform.position.x + directionQueue.x * peopleInQueue.Count * 2, transform.position.y + directionQueue.y * peopleInQueue.Count * 2);
     }
 
     public int GetLenQueue() { return peopleInQueue.Count; }
@@ -40,7 +47,7 @@ public abstract class PointOfInterestWithQueue : PointOfInterest
         peopleInQueue.RemoveAt(0);
         for (int i = 0; i < peopleInQueue.Count; i++)
         {
-            peopleInQueue[i].Move(new Vector2(transform.position.x + directionQueue.x * i * 20, transform.position.y + directionQueue.y * i * 20));
+            peopleInQueue[i].Move(new Vector2(transform.position.x + directionQueue.x * i * 2, transform.position.y + directionQueue.y * i * 2));
         }
         if (peopleInQueue.Count != 0)
         {

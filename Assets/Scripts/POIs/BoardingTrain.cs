@@ -4,6 +4,11 @@ using UnityEngine;
 
 public class BoardingTrain : PointOfInterest
 {
+    public override Vector2 GetPosition(Passenger passenger)
+    {
+        throw new System.NotImplementedException();
+    }
+
     public override int GetRaitingPlace()
     {
         return 100;

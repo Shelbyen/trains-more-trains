@@ -7,7 +7,7 @@ public class TicketOffice : PointOfInterestWithQueue
     [SerializeField] private int checkTime = 5;
     private void Awake()
     {
-        ListOfPoints.AddNewPoint(gameObject, PointNames.TicketOffice);
+        ListOfPoints.AddNewPoint(this, PointNames.TicketOffice);
     }
 
     protected override void ChangePointOfInterest(Passenger passenger)

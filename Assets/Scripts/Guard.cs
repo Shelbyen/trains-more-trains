@@ -9,8 +9,9 @@ public class Guard : Human
 {
     [SerializeField] float radius;
     [SerializeField] bool post;
-    private void FixedUpdate()
+    private new void FixedUpdate()
     {
+        base.FixedUpdate();
         if (!post) { return; }
         List<RaycastHit2D> colliderHits = new List<RaycastHit2D>();
         ContactFilter2D filter = new ContactFilter2D().NoFilter();

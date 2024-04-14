@@ -4,8 +4,13 @@ using UnityEngine;
 
 public class InspectionPoint : PointOfInterestWithQueue
 {
-    [SerializeField] private int checkTime = 3;
+    [SerializeField] private int checkTime = 5;
     [SerializeField] private List<Human> guards;
+
+    private void Awake()
+    {
+        ListOfPoints.AddNewPoint(this, PointNames.InspectionPoint);
+    }
 
     public override int GetRaitingPlace()
     {
@@ -14,15 +19,15 @@ public class InspectionPoint : PointOfInterestWithQueue
 
     public override void Join(Passenger passenger)
     {
-        JoinQueue(passenger);
         passenger.SetActivity(HumanActivites.StayQueue);
+        JoinQueue(passenger);
     }
 
     protected override void ChangePointOfInterest(Passenger passenger)
     {
         if (!passenger.CheckDocument())
         {
-            Destroy(passenger); 
+            Destroy(passenger);
             return;
         }
         passenger.ChoicePlace();

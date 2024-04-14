@@ -6,7 +6,6 @@ public class PassengerGenerator : MonoBehaviour
 {
     public Transform spawnPos;
     public GameObject Pref;
-    public GameObject baseTargetPlace;
     public FlightGenerator generator;
 
     private void Awake()
@@ -16,17 +15,20 @@ public class PassengerGenerator : MonoBehaviour
 
     private IEnumerator gener()
     {
+        float progress = 0;
         while (true)
         {
-            yield return new WaitForSeconds(1);
+            yield return new WaitForFixedUpdate();
+            progress += Time.fixedDeltaTime / TimeManager.Scale();
+            if (progress <= 2) { continue; }
             if (Random.Range(0, 10) == 1)
             {
                 generator = GetComponent<FlightGenerator>();
                 GameObject man = Instantiate(Pref, transform.parent);
                 man.transform.position = spawnPos.position;
                 Passenger passenger = man.GetComponent<Passenger>();
-                passenger.SetTargetPlace(baseTargetPlace);
-                passenger.Move(baseTargetPlace.transform.position);
+                passenger.SetTarget(PointNames.InspectionPoint);
+                progress = 0;
 
             }
         }

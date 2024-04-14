@@ -14,7 +14,7 @@ public class Sits : PointOfInterest
         {
             sits.Add(new Sit(trans, null));
         }
-        ListOfPoints.AddNewPoint(gameObject, PointNames.Sits);
+        ListOfPoints.AddNewPoint(this, PointNames.Sits);
     }
 
     public override int GetRaitingPlace()
@@ -60,8 +60,21 @@ public class Sits : PointOfInterest
         sits[idPassengerPlace] = sit;
         passenger.SetActivity(HumanActivites.Walk);
 
-        passenger.SetTargetPlace(transform.gameObject);
+        passenger.SetTargetPlace(this);
         passenger.Move(sit.sitTransform.position);
+    }
+
+    public override Vector2 GetPosition(Passenger passenger)
+    {
+        foreach (Sit sit in sits)
+        {
+            if (sit.Passenger == passenger)
+            {
+                return new Vector2(sit.sitTransform.position.x, sit.sitTransform.position.y);
+            }
+        }
+
+        return transform.position;
     }
 }
 

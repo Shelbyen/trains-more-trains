@@ -6,8 +6,9 @@ using UnityEngine.AI;
 
 public class Human : MonoBehaviour
 {
-    protected GameObject targetPlace;
+    protected PointOfInterest targetPlace;
     protected NavMeshAgent agent;
+    private readonly float baseSpeed = 65;
 
     private void Awake()
     {
@@ -20,7 +21,12 @@ public class Human : MonoBehaviour
         }
     }
 
-    public void SetTargetPlace(GameObject targetPlace)
+    protected void FixedUpdate()
+    {
+        agent.speed = baseSpeed * Time.fixedDeltaTime / TimeManager.Scale();
+    }
+
+    public void SetTargetPlace(PointOfInterest targetPlace)
     {
         this.targetPlace = targetPlace;
     }
